@@ -1,4 +1,4 @@
-import { createTorus, moveLeft, moveDown, moveUp, moveRight } from './torus'
+import { createTorus, checkLeft, checkDown, checkUp, checkRight } from './torus'
 
 describe('torus creation', () => {
   it('creates an array of length 1 if size is 1x1', () => {
@@ -22,73 +22,82 @@ describe('torus navigation', () => {
   const height = 3
   const width = 3
 
-  const simulateTorus = (pos, move) => {
+  const navigationCheck = (check, pos, others) => {
     const torus = createTorus(height, width)
     torus.array[pos] = true
-    return move(torus, pos)
+    others && others.forEach(o => (torus.array[o] = true))
+    return check(torus, pos)
   }
 
-  describe('moving left', () => {
-    it('moves left one if in rightmost position', () => {
+  describe('check left', () => {
+    it('returns the left index if in rightmost position and index is not occupied', () => {
       const pos = width - 1
-      const torus = simulateTorus(pos, moveLeft)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[1]).toBeTruthy()
+      expect(navigationCheck(checkLeft, pos)).toEqual(1)
     })
 
-    it('moves returns to the rightmost position if in leftmost space', () => {
+    it('returns the rightmost index if in leftmost position and index is not occupied', () => {
       const pos = 0
-      const torus = simulateTorus(pos, moveLeft)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[2]).toBeTruthy()
+      expect(navigationCheck(checkLeft, pos)).toEqual(2)
+    })
+
+    it('returns -1 when next index is occupied', () => {
+      const pos = 1
+      const others = [0]
+      expect(navigationCheck(checkLeft, pos, others)).toEqual(-1)
     })
   })
 
-  describe('moving down', () => {
-    it('moves down one if in topmost position', () => {
+  describe('check down', () => {
+    it('returns the next down index if in topmost position and index is not occupied', () => {
       const pos = 0
-      const torus = simulateTorus(pos, moveDown)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[3]).toBeTruthy()
+      expect(navigationCheck(checkDown, pos)).toEqual(3)
     })
 
-    it('returns to the topmost position if in bottommost space', () => {
+    it('returns the topmost index if in bottommost position and index is not occupied', () => {
       const pos = (height - 1) * width
-      const torus = simulateTorus(pos, moveDown)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[0]).toBeTruthy()
+      expect(navigationCheck(checkDown, pos)).toEqual(0)
+    })
+
+    it('returns -1 when next index is occupied', () => {
+      const pos = 0
+      const others = [3]
+      expect(navigationCheck(checkDown, pos, others)).toEqual(-1)
     })
   })
 
-  describe('moving up', () => {
-    it('moves up one if in bottommost position', () => {
+  describe('check up', () => {
+    it('returns the next up index if in bottommost position and index is not occupied', () => {
       const pos = (height - 1) * width
-      const torus = simulateTorus(pos, moveUp)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[3]).toBeTruthy()
+      expect(navigationCheck(checkUp, pos)).toEqual(3)
     })
 
-    it('returns to the bottommost position if in upmost space', () => {
+    it('returns the bottommost index if in upmost position and index is not occupied', () => {
       const pos = 0
-      const torus = simulateTorus(pos, moveUp)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[6]).toBeTruthy()
+      expect(navigationCheck(checkUp, pos)).toEqual(6)
+    })
+
+    it('returns -1 when next index is occupied', () => {
+      const pos = 3
+      const others = [0]
+      expect(navigationCheck(checkUp, pos, others)).toEqual(-1)
     })
   })
 
-  describe('moving right', () => {
-    it('moves right one if in leftmost position', () => {
+  describe('check right', () => {
+    it('returns the right index if in leftmost position and index is not occupied', () => {
       const pos = 0
-      const torus = simulateTorus(pos, moveRight)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[1]).toBeTruthy()
+      expect(navigationCheck(checkRight, pos)).toEqual(1)
     })
 
-    it('returns to the leftmost position if in rightmost space', () => {
+    it('returns the leftmost index if in rightmost position and index is not occupied', () => {
       const pos = width - 1
-      const torus = simulateTorus(pos, moveRight)
-      expect(torus.array[pos]).toBeFalsy()
-      expect(torus.array[0]).toBeTruthy()
+      expect(navigationCheck(checkRight, pos)).toEqual(0)
+    })
+
+    it('returns -1 when next index is occupied', () => {
+      const pos = 0
+      const others = [1]
+      expect(navigationCheck(checkRight, pos, others)).toEqual(-1)
     })
   })
 })

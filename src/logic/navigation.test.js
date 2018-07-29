@@ -22,10 +22,10 @@ describe('torus creation', () => {
 
 describe('torus navigation', () => {
   const height = 3
-  const width = 3
+  const width = 6
 
   const navigationCheck = (check, pos, others) => {
-    const torus = createTorus(height, width)
+    const torus = createTorus(width, height)
     torus.array[pos] = FISH
     others && others.forEach(o => (torus.array[o] = FISH))
     return check(torus, pos)
@@ -36,22 +36,22 @@ describe('torus navigation', () => {
       const pos = width - 1
       const check = navigationCheck(checkLeft, pos)
       expect(check.occupant).toBeFalsy()
-      expect(check.location).toEqual(1)
+      expect(check.location).toEqual(4)
     })
 
     it('returns the rightmost index if in leftmost position and index is not occupied', () => {
       const pos = 0
       const check = navigationCheck(checkLeft, pos)
       expect(check.occupant).toBeFalsy()
-      expect(check.location).toEqual(2)
+      expect(check.location).toEqual(5)
     })
 
-    it('returns -1 when next index is occupied', () => {
+    it('returns occupant when next index is occupied', () => {
       const pos = 1
       const others = [0]
       const check = navigationCheck(checkLeft, pos, others)
-      expect(check.occupant).toEqual(FISH)
       expect(check.location).toEqual(0)
+      expect(check.occupant).toEqual(FISH)
     })
   })
 
@@ -60,46 +60,46 @@ describe('torus navigation', () => {
       const pos = 0
       const check = navigationCheck(checkDown, pos)
       expect(check.occupant).toBeFalsy()
-      expect(check.location).toEqual(3)
+      expect(check.location).toEqual(6)
     })
 
     it('returns the topmost index if in bottommost position and index is not occupied', () => {
-      const pos = (height - 1) * width
+      const pos = 12
       const check = navigationCheck(checkDown, pos)
       expect(check.occupant).toBeFalsy()
       expect(check.location).toEqual(0)
     })
 
-    it('returns -1 when next index is occupied', () => {
+    it('returns occupant when next index is occupied', () => {
       const pos = 0
-      const others = [3]
+      const others = [6]
       const check = navigationCheck(checkDown, pos, others)
+      expect(check.location).toEqual(6)
       expect(check.occupant).toEqual(FISH)
-      expect(check.location).toEqual(3)
     })
   })
 
   describe('check up', () => {
     it('returns the next up index if in bottommost position and index is not occupied', () => {
-      const pos = (height - 1) * width
+      const pos = 12
       const check = navigationCheck(checkUp, pos)
+      expect(check.location).toEqual(6)
       expect(check.occupant).toBeFalsy()
-      expect(check.location).toEqual(3)
     })
 
     it('returns the bottommost index if in upmost position and index is not occupied', () => {
       const pos = 0
       const check = navigationCheck(checkUp, pos)
+      expect(check.location).toEqual(12)
       expect(check.occupant).toBeFalsy()
-      expect(check.location).toEqual(6)
     })
 
-    it('returns -1 when next index is occupied', () => {
-      const pos = 3
+    it('returns occupant when next index is occupied', () => {
+      const pos = 6
       const others = [0]
       const check = navigationCheck(checkUp, pos, others)
-      expect(check.occupant).toEqual(FISH)
       expect(check.location).toEqual(0)
+      expect(check.occupant).toEqual(FISH)
     })
   })
 
@@ -113,23 +113,18 @@ describe('torus navigation', () => {
 
     it('returns the leftmost index if in rightmost position and index is not occupied', () => {
       const pos = width - 1
+      console.log(pos)
       const check = navigationCheck(checkRight, pos)
       expect(check.occupant).toBeFalsy()
       expect(check.location).toEqual(0)
     })
 
-    it('returns 5 when postion is 4', () => {
-      const pos = 4
-      const check = navigationCheck(checkRight, pos)
-      expect(check.location).toEqual(5)
-    })
-
-    it('returns -1 when next index is occupied', () => {
+    it('returns occupant when next index is occupied', () => {
       const pos = 0
       const others = [1]
       const check = navigationCheck(checkRight, pos, others)
-      expect(check.occupant).toEqual(FISH)
       expect(check.location).toEqual(1)
+      expect(check.occupant).toEqual(FISH)
     })
   })
 })

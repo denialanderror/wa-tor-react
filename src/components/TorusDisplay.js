@@ -26,7 +26,7 @@ class TorusDisplay extends Component {
   }
 
   create() {
-    const torus = createTorus(10, 10)
+    const torus = createTorus(22, 10)
     this.setState({ ...this.state, torus })
   }
 

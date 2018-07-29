@@ -31,8 +31,9 @@ const makeMove = ({ array }, current, next) => {
       array[next.location] = player
       return array
     case SHARK:
-      const energy = next.occupant && next.occupant.type === FISH.type ? 1 : -1
+      const energy = next.occupant && next.occupant.type === FISH ? 1 : -1
       player.lifeforce = player.lifeforce + energy
+
       array[current.location] =
         current.location !== next.location && player.age % player.spawningAge === 0 ? player.spawn(player) : undefined
       array[next.location] = player.lifeforce > 0 ? player : undefined

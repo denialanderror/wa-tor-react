@@ -50,6 +50,12 @@ class TorusDisplay extends Component {
     })
   }
 
+  handleIncrementDecrement = target => value => {
+    this.setState({
+      [target]: value
+    })
+  }
+
   render() {
     const { array } = this.state.torus
     return (
@@ -62,7 +68,7 @@ class TorusDisplay extends Component {
           ))}
         </div>
 
-        <form>
+        <form className="form">
           <label>
             Shark Spawning Age:
             <input

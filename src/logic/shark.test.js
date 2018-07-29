@@ -13,10 +13,10 @@ describe('shark', () => {
 
   describe('hunting', () => {
     it('hunts fish if nearby', () => {
-      const torus = populateTorus({ 0: shark(), 2: fish() })
+      const torus = populateTorus({ 0: shark(), 1: fish() })
       const { array } = takeTurn(torus, getOccupant(torus.array, 0))
       expect(array[0]).toBeFalsy()
-      expect(array[2].type).toEqual(SHARK)
+      expect(array[1].type).toEqual(SHARK)
     })
 
     it('hunts fish if the other side of the torus', () => {
@@ -47,6 +47,13 @@ describe('shark', () => {
       const { array } = takeTurn(torus, getOccupant(torus.array, 4))
       expect(array[4] && array[4].type).toEqual(SHARK)
       expect(array.filter(e => e).filter(({ type }) => type === SHARK)).toHaveLength(5)
+    })
+
+    it('will gain lifeforce if fish are eaten', () => {
+      const torus = populateTorus({ 1: fish(), 3: fish(), 4: shark(3, 2), 5: fish(), 7: fish() })
+      const { array } = takeTurn(torus, getOccupant(torus.array, 4))
+      const entity = array.filter(e => e).filter(({ type }) => type === SHARK)[0]
+      expect(entity.lifeforce).toEqual(4)
     })
 
     it('will expend lifeforce if no fish are eaten', () => {

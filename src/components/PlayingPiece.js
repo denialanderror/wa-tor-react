@@ -1,7 +1,7 @@
 import React from 'react'
 import { FISH, SHARK } from '../const'
-import Shark from './shark'
-import Fish from './fish'
+import Shark from './Shark'
+import Fish from './Fish'
 import './PlayingPiece.css'
 
 const PlayingPiece = ({ entity }) => <div className="container">{display(entity)}</div>

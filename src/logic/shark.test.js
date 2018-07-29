@@ -49,13 +49,6 @@ describe('shark', () => {
       expect(array.filter(e => e).filter(({ type }) => type === SHARK)).toHaveLength(5)
     })
 
-    it('will gain lifeforce if fish are eaten', () => {
-      const torus = populateTorus({ 1: fish(), 3: fish(), 4: shark(3, 2), 5: fish(), 7: fish() })
-      const { array } = takeTurn(torus, getOccupant(torus.array, 4))
-      const entity = array.filter(e => e).filter(({ type }) => type === SHARK)[0]
-      expect(entity.lifeforce).toEqual(4)
-    })
-
     it('will expend lifeforce if no fish are eaten', () => {
       const torus = populateTorus({ 0: shark() })
       const { array } = takeTurn(torus, getOccupant(torus.array, 0))

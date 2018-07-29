@@ -21,19 +21,20 @@ const filterOptions = ({ occupant: player }, options) => {
 
 const makeMove = ({ array }, current, next) => {
   const { occupant: player } = current
+  if (current.location !== next.location) {
+    player.age = player.age + 1
+  }
   switch (player.type) {
     case FISH:
-      if (current.location !== next.location) {
-        player.age = player.age + 1
-        array[current.location] =
-          current.location !== next.location && player.age % 3 === 0 ? { ...player, age: 0 } : undefined
-        array[next.location] = player
-      }
+      array[current.location] =
+        current.location !== next.location && player.age % player.spawningAge === 0 ? player.spawn(player) : undefined
+      array[next.location] = player
       return array
     case SHARK:
       const energy = next.occupant && next.occupant.type === FISH.type ? 1 : -1
       player.lifeforce = player.lifeforce + energy
-      array[current.location] = undefined
+      array[current.location] =
+        current.location !== next.location && player.age % player.spawningAge === 0 ? player.spawn(player) : undefined
       array[next.location] = player.lifeforce > 0 ? player : undefined
       return array
     default:

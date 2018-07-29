@@ -57,9 +57,39 @@ describe('shark', () => {
     })
 
     it('will die if lifeforce is depleted', () => {
-      const torus = populateTorus({ 0: { type: SHARK, lifeforce: 0 } })
+      const torus = populateTorus({ 0: shark(3, 1) })
       const { array } = takeTurn(torus, getOccupant(torus.array, 0))
       expect(array.filter(e => e)).toHaveLength(0)
+    })
+  })
+
+  describe('spawning', () => {
+    it('can spawn new sharks', () => {
+      const parent = shark(2)
+      const child = parent.spawn(parent)
+      expect(child.type).toEqual(parent.type)
+      expect(child.age).toEqual(0)
+      expect(child.lifeforce).toEqual(3)
+    })
+
+    it('spawns a new shark once it reaches spawning age and there is room to move', () => {
+      const torus = populateTorus({ 4: shark(3, 3, 2) })
+      const { array } = takeTurn(torus, getOccupant(torus.array, 4))
+      expect(array[4] && array[4].type).toEqual(SHARK)
+      expect(array.filter(e => e).filter(({ type }) => type === SHARK)).toHaveLength(2)
+    })
+
+    it('does not age if it cannot move to spawn', () => {
+      const torus = populateTorus({
+        1: shark(),
+        3: shark(),
+        4: { type: SHARK, lifeforce: 3, age: 2 },
+        5: shark(),
+        7: shark()
+      })
+      const { array } = takeTurn(torus, getOccupant(torus.array, 4))
+      expect(array.filter(e => e).filter(({ type }) => type === SHARK)).toHaveLength(5)
+      expect(array[4] && array[4].age).toEqual(2)
     })
   })
 })

@@ -33,9 +33,18 @@ describe('fish', () => {
       expect(array[4] && array[4].type).toEqual(FISH)
       expect(array.filter(e => e).filter(({ type }) => type === SHARK)).toHaveLength(4)
     })
+  })
 
-    it('spawns a new fish once it reaches breeding age and there is room to move', () => {
-      const torus = populateTorus({ 4: { type: FISH, age: 2 } })
+  describe('spawning', () => {
+    it('can spawn new fish', () => {
+      const parent = fish(2)
+      const child = parent.spawn(parent)
+      expect(child.type).toEqual(parent.type)
+      expect(child.age).toEqual(0)
+    })
+
+    it('spawns a new fish once it reaches spawning age and there is room to move', () => {
+      const torus = populateTorus({ 4: fish(3, 2) })
       const { array } = takeTurn(torus, getOccupant(torus.array, 4))
       expect(array[4] && array[4].type).toEqual(FISH)
       expect(array.filter(e => e).filter(({ type }) => type === FISH)).toHaveLength(2)

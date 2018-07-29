@@ -7,9 +7,15 @@ const getId = () => {
   return id
 }
 
-const fish = () => ({ id: getId(), type: FISH, age: 0 })
+const fish = (spawningAge = 3, age = 0) => {
+  const entity = { id: getId(), type: FISH, age, spawningAge }
+  return { ...entity, spawn: parent => ({ ...parent, id: getId(), age: 0 }) }
+}
 
-const shark = () => ({ id: getId(), type: SHARK, lifeforce: 3 })
+const shark = (spawningAge = 3, lifeforce = 3, age = 0) => {
+  const entity = { id: getId(), type: SHARK, age, spawningAge, lifeforce }
+  return { ...entity, spawn: parent => ({ ...parent, id: getId(), lifeforce, age: 0 }) }
+}
 
 const createTorus = (width = 3, height = 3) => {
   const array = Array.from({ length: height * width })

@@ -15,7 +15,6 @@ const simulate = currentState => {
       nextState = takeTurn(nextState, player)
     }
   }
-
   return nextState
 }
 

@@ -25,10 +25,6 @@ const DownArrow = () => (
   </div>
 )
 
-const UpdateButton = update => (
+const UpdateButton = update => <div />
 
-)
-
-const StepForwardButton = play => (
-  
-)
+const StepForwardButton = play => <div />

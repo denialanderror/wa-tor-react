@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import TorusDisplay from './components/TorusDisplay'
+import TorusDisplay from './components/torus-display'
 
 class App extends Component {
   render() {

@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(22, 50px);
+  grid-template-rows: repeat(10, 50px);
+  grid-gap: 10px;
+}
+
+.item {
+  border-color: rgb(5, 67, 184);
+  border-style: solid;
+}
+
+.form {
+  padding: 20px;
+}

@@ -31,6 +31,8 @@ const makeMove = ({ array }, current, next) => {
       array[next.location] = player
       return array
     case SHARK:
+      console.log(player)
+      console.log(next.occupant)
       const energy = next.occupant && next.occupant.type === FISH ? 1 : -1
       player.lifeforce = player.lifeforce + energy
 

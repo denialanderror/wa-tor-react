@@ -1,19 +1,20 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './TorusDisplay.css'
 
 import { createTorus, shark, fish } from '../logic/generate'
 import simulate from '../logic/simulate'
 import PlayingPiece from './PlayingPiece'
 import { FISH } from '../const'
+import { UpdateButton, PlayButton, FormControl } from './Controls'
 
 class TorusDisplay extends Component {
   constructor(props) {
     super(props)
     this.state = {
       torus: { array: [] },
-      sharkSpawningAge: 3,
-      sharkLifeforce: 5,
-      fishSpawningAge: 3
+      sharkSpawningAge: 4,
+      sharkLifeforce: 3,
+      fishSpawningAge: 2
     }
   }
 
@@ -26,7 +27,7 @@ class TorusDisplay extends Component {
   }
 
   create() {
-    const torus = createTorus(22, 10)
+    const torus = createTorus(22, 16)
     this.setState({ ...this.state, torus })
   }
 
@@ -46,7 +47,7 @@ class TorusDisplay extends Component {
 
   handleInputChange = ({ target }) => {
     this.setState({
-      [target.name]: target.value
+      [target.name]: Number(target.value)
     })
   }
 
@@ -59,8 +60,8 @@ class TorusDisplay extends Component {
   render() {
     const { array } = this.state.torus
     return (
-      <Fragment>
-        <div className="grid">
+      <div className="display">
+        <div className="torus">
           {array.map((entity, index) => (
             <div key={index} className="item" onClick={() => this.changeTile(entity, index)}>
               <PlayingPiece entity={entity} />
@@ -68,38 +69,26 @@ class TorusDisplay extends Component {
           ))}
         </div>
 
-        <form className="form">
-          <label>
-            Shark Spawning Age:
-            <input
-              name="sharkSpawningAge"
-              type="text"
-              value={this.state.sharkSpawningAge}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            Shark Starting Lifeforce:
-            <input
-              name="sharkLifeforce"
-              type="text"
-              value={this.state.sharkLifeforce}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            Fish Spawning Age:
-            <input
-              name="fishSpawningAge"
-              type="text"
-              value={this.state.fishSpawningAge}
-              onChange={this.handleInputChange}
-            />
-          </label>
-        </form>
-        <button onClick={() => this.create()}>CREATE</button>
-        <button onClick={() => this.play()}>PLAY</button>
-      </Fragment>
+        <div className="controls">
+          <FormControl
+            label="Shark Spawning Age"
+            current={this.state.sharkSpawningAge}
+            onChange={this.handleIncrementDecrement('sharkSpawningAge')}
+          />
+          <FormControl
+            label="Shark Starting Lifeforce"
+            current={this.state.sharkLifeforce}
+            onChange={this.handleIncrementDecrement('sharkLifeforce')}
+          />
+          <FormControl
+            label="Fish Spawning Age"
+            current={this.state.fishSpawningAge}
+            onChange={this.handleIncrementDecrement('fishSpawningAge')}
+          />
+          <UpdateButton update={() => this.create()} />
+          <PlayButton play={() => this.play()} />
+        </div>
+      </div>
     )
   }
 }

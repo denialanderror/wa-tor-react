@@ -83,7 +83,7 @@ describe('shark', () => {
       const torus = populateTorus({
         1: shark(),
         3: shark(),
-        4: { type: SHARK, lifeforce: 3, age: 2 },
+        4: shark(3, 3, 2),
         5: shark(),
         7: shark()
       })

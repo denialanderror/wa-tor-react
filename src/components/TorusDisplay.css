@@ -1,15 +1,25 @@
-.grid {
+.display {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  height: 100%;
+}
+
+.torus {
   display: grid;
   grid-template-columns: repeat(22, 50px);
-  grid-template-rows: repeat(10, 50px);
+  grid-template-rows: repeat(16, 50px);
   grid-gap: 10px;
+  overflow: scroll;
+  margin: 20px 0px 0 20px;
 }
 
 .item {
-  border-color: rgb(5, 67, 184);
+  border-color: #0099cc;
   border-style: solid;
 }
 
-.form {
-  padding: 20px;
+.controls {
+  height: 100%;
+  min-height: 100%;
+  background-color: #0099cc;
 }

@@ -1,15 +1,6 @@
-import React, { Component } from 'react'
-import './App.css'
+import React from 'react'
 import TorusDisplay from './components/TorusDisplay'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <TorusDisplay />
-      </div>
-    )
-  }
-}
+const App = () => <TorusDisplay />
 
 export default App

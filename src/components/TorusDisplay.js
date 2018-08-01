@@ -69,22 +69,24 @@ class TorusDisplay extends Component {
           ))}
         </div>
 
-        <div className="controls">
-          <FormControl
-            label="Shark Spawning Age"
-            current={this.state.sharkSpawningAge}
-            onChange={this.handleIncrementDecrement('sharkSpawningAge')}
-          />
-          <FormControl
-            label="Shark Starting Lifeforce"
-            current={this.state.sharkLifeforce}
-            onChange={this.handleIncrementDecrement('sharkLifeforce')}
-          />
-          <FormControl
-            label="Fish Spawning Age"
-            current={this.state.fishSpawningAge}
-            onChange={this.handleIncrementDecrement('fishSpawningAge')}
-          />
+        <div className="control-border">
+          <div className="control-button-container">
+            <FormControl
+              label="Shark Spawning Age"
+              current={this.state.sharkSpawningAge}
+              onChange={this.handleIncrementDecrement('sharkSpawningAge')}
+            />
+            <FormControl
+              label="Shark Starting Lifeforce"
+              current={this.state.sharkLifeforce}
+              onChange={this.handleIncrementDecrement('sharkLifeforce')}
+            />
+            <FormControl
+              label="Fish Spawning Age"
+              current={this.state.fishSpawningAge}
+              onChange={this.handleIncrementDecrement('fishSpawningAge')}
+            />
+          </div>
           <UpdateButton update={() => this.create()} />
           <PlayButton play={() => this.play()} />
         </div>

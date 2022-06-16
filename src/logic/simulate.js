@@ -1,9 +1,9 @@
 import takeTurn from './turn'
 import { getOccupant } from './navigation'
 
-const simulate = currentState => {
+const simulate = (currentState) => {
   const ids = currentState.array
-    .filter(it => it)
+    .filter((it) => it)
     .map(({ id }) => id)
     .sort((a, b) => a - b)
 
@@ -18,6 +18,6 @@ const simulate = currentState => {
   return nextState
 }
 
-const getById = (array, target) => array.findIndex(element => element && element.id === target)
+const getById = (array, target) => array.findIndex((element) => element && element.id === target)
 
 export default simulate

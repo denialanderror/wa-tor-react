@@ -27,7 +27,7 @@ describe('torus navigation', () => {
   const navigationCheck = (check, pos, others) => {
     const torus = createTorus(width, height)
     torus.array[pos] = FISH
-    others && others.forEach(o => (torus.array[o] = FISH))
+    others && others.forEach((o) => (torus.array[o] = FISH))
     return check(torus, pos)
   }
 
@@ -135,7 +135,7 @@ describe('deciding direction', () => {
   })
 
   it('should not include duplicates', () => {
-    const directionNames = getDirections().map(dir => dir.name)
+    const directionNames = getDirections().map((dir) => dir.name)
     expect(new Set(directionNames).size).toEqual(4)
   })
 })

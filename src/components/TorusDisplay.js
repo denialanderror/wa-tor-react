@@ -14,7 +14,7 @@ class TorusDisplay extends Component {
       torus: { array: [] },
       sharkSpawningAge: 4,
       sharkLifeforce: 3,
-      fishSpawningAge: 2
+      fishSpawningAge: 2,
     }
   }
 
@@ -47,13 +47,13 @@ class TorusDisplay extends Component {
 
   handleInputChange = ({ target }) => {
     this.setState({
-      [target.name]: Number(target.value)
+      [target.name]: Number(target.value),
     })
   }
 
-  handleIncrementDecrement = target => value => {
+  handleIncrementDecrement = (target) => (value) => {
     this.setState({
-      [target]: value
+      [target]: value,
     })
   }
 

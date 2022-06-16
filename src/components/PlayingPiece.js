@@ -6,7 +6,7 @@ import './PlayingPiece.css'
 
 const PlayingPiece = ({ entity }) => <div className="container">{display(entity)}</div>
 
-const display = entity => {
+const display = (entity) => {
   if (!entity) {
     return <VacantSpace />
   }

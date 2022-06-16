@@ -2,7 +2,7 @@ import { FISH, SHARK } from '../const'
 import { getDirections } from './navigation'
 
 const takeTurn = (torus, player) => {
-  const directions = Object.values(getDirections()).map(direction => direction(torus, player.location))
+  const directions = Object.values(getDirections()).map((direction) => direction(torus, player.location))
   const viableOptions = filterOptions(player, directions).sort(({ occupant }, _) => (occupant ? -1 : 1))
   const option = viableOptions.length > 0 ? viableOptions[0] : { occupant: undefined, location: player.location }
   return { ...torus, array: makeMove(torus, player, option) }

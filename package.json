@@ -10,11 +10,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test:component": "react-scripts test 'src/components/*' --env=jsdom",
+    "test:unit": "react-scripts test 'src/logic/*' --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "pretty-quick staged"
   },
   "devDependencies": {
+    "@testing-library/react": "^13.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
